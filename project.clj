@@ -1,4 +1,4 @@
-(defproject rickmoynihan/nrebl.middleware "0.3.2-EDEN-SNAPSHOT"
+(defproject com.github.rynkowsg/nrebl.middleware "0.4.0"
   :description "An nREPL middleware for capturing and browsing data in REBL."
   :url "https://github.com/rynkowsg/nrebl.middleware"
   :license {:name "Eclipse Public License"
