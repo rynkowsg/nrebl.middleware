@@ -1,7 +1,10 @@
 (ns nrebl.middleware-test
-  (:require [clojure.test :refer :all]
-            [nrebl.middleware :refer :all]))
+  (:require
+   [clojure.test :refer [deftest is]]
+   [nrebl.middleware :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest test-cursive?
+  (is (not (cursive? {:op "eval" :code "1"})))
+  (is (not (cursive? {:op "eval" :code "(+ 1 1)"})))
+  (is (not (cursive? {:op "eval" :code "nil"})))
+  (is (cursive? {:op "eval" :code "(cursive.repl.runtime/completions 'clojure.pprint)"})))
