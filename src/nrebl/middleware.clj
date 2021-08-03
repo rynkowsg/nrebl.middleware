@@ -60,15 +60,14 @@
 
 (defn wrap-nrebl
   [handler]
-  (fn [{:keys [op] :as request}]
-    (if (= op "start-rebl-ui")
-      (rebl-ui)
-      (handler (assoc request :transport (wrap-rebl-sender request))))))
+  (rebl-ui)
+  (fn [request]
+    (handler (assoc request :transport (wrap-rebl-sender request)))))
 
 (set-descriptor! #'wrap-nrebl
                  {:requires #{#'wrap-print}
                   :expects  #{"eval"}
-                  :handles  {"start-rebl-ui" "Launch the REBL inspector and have it capture interactions over nREPL"}})
+                  :handles  {}})
 
 ;; ----------- comments ---------------
 
@@ -78,18 +77,13 @@
 
  ;; start nREPL server
  (def nrep (ser/start-server :port 55808 :handler (ser/default-handler #'wrap-nrebl)))
- ;; stop nREPL server
- (ser/stop-server nrep)
-
- ;; send "start-rebl-ui" to nREPL
- (with-open [conn (nrepl/connect :port 55808)]
-   (-> (nrepl/client conn 1000)                             ; message receive timeout required
-       (nrepl/message {:op "start-rebl-ui"})
-       nrepl/response-values))
 
  ;; send sample form to nREPL
  (with-open [conn (nrepl/connect :port 55808)]
    (-> (nrepl/client conn 1000)                             ; message receive timeout required
        ;(nrepl/message {:op "inspect-nrebl" :code "[1 2 3 4 5 6 7 8 9 10 {:a :b :c :d :e #{5 6 7 8 9 10}}]"})
        (nrepl/message {:op "eval" :code "(do {:a :b :c [1 2 3 4] :d #{5 6 7 8} :e (range 20)})"})
-       nrepl/response-values)))
+       nrepl/response-values))
+
+ ;; stop nREPL server
+ (ser/stop-server nrep))

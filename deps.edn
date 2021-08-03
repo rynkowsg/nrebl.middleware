@@ -30,4 +30,4 @@
 
            :nrepl-rebl
            {:extra-deps {nrepl/nrepl {:mvn/version "0.8.3"}}
-            :main-opts  ["-e" "((requiring-resolve,'cognitect.rebl/ui))" "-m" "nrepl.cmdline" "-i" "--middleware" "[nrebl.middleware/wrap-nrebl]"]}}}
+            :main-opts  ["-m" "nrepl.cmdline" "-i" "--middleware" "[nrebl.middleware/wrap-nrebl]"]}}}
