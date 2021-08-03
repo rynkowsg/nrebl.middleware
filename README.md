@@ -1,5 +1,7 @@
 # nrebl.middleware
 
+[![Clojars Project](https://img.shields.io/clojars/v/com.github.rynkowsg/nrebl.middleware.svg)](https://clojars.org/com.github.rynkowsg/nrebl.middleware)
+
 The start of an nREPL middleware that will spy on an nREPL connection
 and capture the results of evaluation for browsing in
 [REBL](https://github.com/cognitect-labs/REBL-distro).
@@ -56,9 +58,8 @@ Add the following to either project's `deps.edn` or home `~/.clojure/deps.edn`:
 
            ;; this alias' :main-opts shows how to use this nREPL middleware
            :nrepl-rebl
-           {:extra-deps {nrepl/nrepl               {:mvn/version "0.8.3"}
-                         rynkowsg/nrebl.middleware {:git/url "https://github.com/rynkowsg/nrebl.middleware"
-                                                    :sha     "9f0b8f57d81b662037e08c8672160ed4a0b6f882"}}
+           {:extra-deps {nrepl/nrepl                          {:mvn/version "0.8.3"}
+                         com.github.rynkowsg/nrebl.middleware {:mvn/version "0.4.0"}}
             :main-opts  ["-m" "nrepl.cmdline" "-i" "--middleware" "[nrebl.middleware/wrap-nrebl]"]}}
  ;; ...
  }
@@ -106,7 +107,7 @@ Add the following to either project's `project.clj` or home `~/.lein/profiles.cl
                                        [org.openjfx/javafx-swing "16"]
                                        [org.openjfx/javafx-base "16"]
                                        [org.openjfx/javafx-web "16"]]}
-           :nrepl-rebl {:dependencies [[rynkowsg/nrebl.middleware "0.2.0"]]
+           :nrepl-rebl {:dependencies [[com.github.rynkowsg/nrebl.middleware "0.4.0"]]
                         :repl-options {:nrepl-middleware [nrebl.middleware/wrap-nrebl]}}
            ;; ...
            }
