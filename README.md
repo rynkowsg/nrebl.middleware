@@ -16,14 +16,39 @@ and capture the results of evaluation for browsing in
 - During the nREPL server activity, all the forms sent to nREPL server will be sent also to REBL.
 - The only forms that are not sent to REBL are Cursive's forms that are filtered out.
 
-### Common prerequisites
+## Installation
+
+### Prerequisites
 
 1. Install [clojure](https://clojure.org/)
 2. Install [Cognitect dev-tools](https://cognitect.com/dev-tools/) (contains REBL).
 3. Include some aliases either in your `~/.clojure/deps.edn` or your projects `deps.edn`
-   respectively.
+   respectively
 
-### deps.tools
+### In a nutshell
+
+1. Add to your dependencies the latest version:
+
+    | leiningen | deps.toosls |
+    --- | ---
+    | `[com.github.rynkowsg/nrebl.middleware "0.4.0"]` | `com.github.rynkowsg/nrebl.middleware {:mvn/version "0.4.0"}` |
+
+2. Add nREPL middleware:
+
+    | leiningen | deps.toosls |
+    --- | ---
+    | `:repl-options {:nrepl-middleware [nrebl.middleware/wrap-nrebl]}` | `--middleware [nrebl.middleware/wrap-nrebl]` |
+
+### More on this middleware and REBL installation
+
+Below examples shows how to install the middleware as well as how to run REBL.
+The `rebl-8` and `rebl-11` aliases/profiles are for running either on Oracle's JDK 8
+(which bundles JavaFX) or OpenJDK 11 (which doesn't bundle JavaFX so we include them).<br>
+Rest of libraries (`core.async`, `data.csv`, `data.json`, `snakeyaml`) are optional
+but it is recommended to include them to support datafication
+([REBL docs](https://docs.datomic.com/cloud/other-tools/REBL.html#datafied-files)).
+
+#### deps.tools
 
 Add the following to either project's `deps.edn` or home `~/.clojure/deps.edn`:
 ```clojure
@@ -64,11 +89,6 @@ Add the following to either project's `deps.edn` or home `~/.clojure/deps.edn`:
  ;; ...
  }
 ```
-NOTE: The `:rebl-8` and `:rebl-11` aliases are for running either on Oracle's JDK 8
-(which bundles JavaFX) or OpenJDK 11 (which doesn't bundle JavaFX so we include them).<br>
-Rest of libraries (`core.async`, `data.csv`, `data.json`, `snakeyaml`) are optional
-but it is recommended to include them to support datafication.
-([REBL docs](https://docs.datomic.com/cloud/other-tools/REBL.html#datafied-files)).
 
 To run nREPL with REBL on JVM 1.8 (only Oracle JDK 1.8)
 ```shell
@@ -79,7 +99,7 @@ To run nREPL with REBL on JVM 11:
 clj -M:rebl-11:nrepl-rebl
 ```
 
-### Leiningen
+#### Leiningen
 
 Add the following to either project's `project.clj` or home `~/.lein/profiles.clj`:
 ```clojure
