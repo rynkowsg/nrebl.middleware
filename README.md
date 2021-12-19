@@ -29,13 +29,13 @@ and capture the results of evaluation for browsing in
 
 1. Add to your dependencies the latest version:
 
-    | leiningen | deps.toosls |
+    | leiningen | deps.tools |
     --- | ---
     | `[com.github.rynkowsg/nrebl.middleware "0.4.0"]` | `com.github.rynkowsg/nrebl.middleware {:mvn/version "0.4.0"}` |
 
 2. Add nREPL middleware:
 
-    | leiningen | deps.toosls |
+    | leiningen | deps.tools |
     --- | ---
     | `:repl-options {:nrepl-middleware [nrebl.middleware/wrap-nrebl]}` | `--middleware [nrebl.middleware/wrap-nrebl]` |
 
